@@ -1,0 +1,436 @@
+
+/* IMPORTANT:
+   @import must come before other CSS rules.
+   Earlier you placed it after the universal selector. */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&display=swap');
+
+
+/* =========================
+   1. UNIVERSAL RESET
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+
+  /* GOOD PRACTICE:
+     Includes padding and border inside element width/height.
+     You already used this correctly! */
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   2. BODY
+========================= */
+
+body {
+  background-color: rgba(1, 26, 53, 0.811);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+
+/* =========================
+   3. MAIN SECTION
+========================= */
+
+main {
+
+  /* MISTAKE FIXED:
+     Earlier you used position: fixed, top: 20%,
+     left: 30% on the card.
+
+     This causes positioning problems on smaller screens.
+
+     Flexbox is better for centering the card. */
+
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+}
+
+
+/* =========================
+   4. MAIN CONTAINER
+========================= */
+
+.container {
+
+  /* IMPROVEMENT:
+     min() makes the card responsive.
+     It will never exceed 400px or the available width. */
+
+  width: min(100%, 400px);
+
+  min-height: 450px;
+
+  border: 5px solid rgb(174, 174, 174);
+
+  /* Your original 55px radius was quite large.
+     Reduced slightly for a cleaner look. */
+
+  border-radius: 35px;
+
+  background-color: white;
+
+}
+
+
+/* =========================
+   5. UPPER SECTION
+========================= */
+
+.upper {
+
+  background-color: rgb(1, 26, 53);
+
+  height: 150px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  /* Shorter syntax for top-left and top-right radius */
+  border-radius: 29px 29px 0 0;
+
+}
+
+
+/* PROFILE IMAGE */
+
+.upper img {
+
+  width: 130px;
+  height: 130px;
+
+  /* MISTAKE FIXED:
+     Earlier you used top: 40px.
+     That is a fixed offset and can be difficult to maintain.
+
+     translateY(50%) creates a consistent overlap. */
+
+  transform: translateY(50%);
+
+  border-radius: 50%;
+
+  /* Prevents image stretching or distortion */
+  object-fit: cover;
+
+  border: 2px solid white;
+
+  box-shadow: 3px 3px 3px rgb(43, 110, 198);
+
+  transition: transform 0.3s ease;
+}
+
+
+/* IMPROVEMENT:
+   Combine the original translate with scale.
+   Otherwise transform: scale() would overwrite translateY(). */
+
+.upper img:hover {
+
+  transform: translateY(50%) scale(1.08);
+    box-shadow: -3px -3px 3px rgb(43, 110, 198);
+
+
+}
+
+
+/* =========================
+   6. LOWER SECTION
+========================= */
+
+.lower {
+
+  /* MISTAKE FIXED:
+     Earlier you used margin: 40px and padding: 30px.
+     This unnecessarily reduced the available content area.
+
+     Padding is enough here. */
+
+  padding: 80px 20px 25px;
+
+  text-align: center;
+
+}
+
+
+/* PROFILE HEADING */
+
+.profile-title {
+
+  font-family: 'Segoe UI', sans-serif;
+
+  margin-bottom: 10px;
+
+  letter-spacing: 3px;
+
+}
+
+
+/* PROFILE DESCRIPTION */
+
+.slim-text {
+
+  font-family: "Archivo Narrow", sans-serif;
+
+  /* MISTAKE FIXED:
+     Your imported font started at weight 400,
+     but you requested font-weight: 100. */
+
+  font-weight: 400;
+
+  letter-spacing: 2px;
+
+  font-size: 14px;
+
+}
+
+
+/* =========================
+   7. SOCIAL MEDIA ICONS
+========================= */
+
+.icons {
+
+  display: flex;
+
+  justify-content: center;
+
+  /* BETTER THAN:
+     Using transform: scale() on the entire container
+     and padding on individual icons. */
+
+  gap: 20px;
+
+  margin: 20px 0;
+
+}
+
+
+/* Individual icons */
+
+.icons i {
+
+  display: inline-block;
+
+  font-size: 22px;
+
+  transition: transform 0.3s ease;
+
+}
+
+
+/* Hover animation */
+
+.icons i:hover {
+
+  transform: scale(1.3);
+
+}
+
+
+/* INSTAGRAM */
+
+.fa-instagram {
+
+  background: linear-gradient(
+    45deg,
+    #feda75,
+    #fa7e1e,
+    #d62976,
+    #962fbf,
+    #4f5bd5
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+
+/* FACEBOOK */
+
+.fa-facebook {
+  color: #1877F2;
+}
+
+
+/* X */
+
+.fa-x-twitter {
+  color: black;
+}
+
+
+
+.fa-youtube {
+  color: #FF0000;
+}
+
+
+/* =========================
+   8. BUTTONS
+========================= */
+
+.actions {
+
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+}
+
+
+.profile-btn {
+
+  display: inline-block;
+
+  padding: 10px 18px;
+
+  border-radius: 20px;
+
+  background-color: #254d4c;
+
+  border: 1px solid black;
+
+  box-shadow: 2px 2px 2px;
+
+  font-family: 'Segoe UI', sans-serif;
+
+  color: white;
+
+  font-weight: 500;
+
+  text-decoration: none;
+
+  transition: all 0.3s ease;
+
+}
+
+
+/* IMPROVEMENT:
+   Earlier you increased button padding on hover.
+   This can cause surrounding elements to shift.
+
+   transform avoids changing the actual layout size. */
+
+.profile-btn:hover {
+
+  background-color: white;
+
+  color: black;
+
+  transform: translateY(-2px);
+
+  box-shadow: -2px -2px 2px;
+
+}
+
+
+/* =========================
+   9. STATISTICS
+========================= */
+
+.stats {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 25px;
+
+  margin-top: 20px;
+
+}
+
+
+.stat {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  color: #333;
+
+}
+
+
+/* Statistics icons */
+
+.stat i {
+  border-right:2px solid gray ;
+  padding-left: -10px;
+padding-right: 20px;
+  font-size: 17px;
+
+  transition: transform 0.3s ease;
+
+}
+
+
+/* Individual colors */
+
+.fa-heart {
+  color: #ff416c;
+}
+
+.fa-rocketchat {
+  color: #00b894;
+}
+
+.fa-circle-arrow-right{
+  color: #3498db;
+  border-right: none;
+}
+
+
+/* Hover effect */
+
+.stat:hover i {
+
+  transform: scale(1.2);
+
+}
+
+
+/* =========================
+   10. RESPONSIVE DESIGN
+========================= */
+
+/* For smaller screens */
+
+@media (max-width: 400px) {
+
+  .lower {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .stats {
+    gap: 15px;
+  }
+
+  .profile-title {
+    letter-spacing: 2px;
+  }
+
+}
